@@ -68,7 +68,7 @@ export default function UserPage() {
     });
     return (
         <AuthenticatedLayout>
-            <Head title="Penduduk" />
+            <Head title="Users" />
 
             <div className="mb-8 ml-3">
                 <h2 className="text-2xl font-semibold text-gray-600 dark:text-gray-200">

@@ -17,6 +17,9 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('penduduk')->group(function(){
         Route::get('/', [PendudukController::class, 'index'])->name('penduduk.index');
+        Route::get('/detail/{id}', [PendudukController::class, 'detail'])->name('penduduk.detail');
+        Route::get('/create', [PendudukController::class, 'create'])->name('penduduk.create');
+        Route::post('/store', [PendudukController::class, 'store'])->name('penduduk.store');
     });
 
     Route::prefix('users')->group(function(){

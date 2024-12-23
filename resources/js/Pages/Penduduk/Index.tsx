@@ -1,62 +1,79 @@
+import SearchBar from "@/Components/SearchBar";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Package } from "@/types/package";
-import { Head } from "@inertiajs/react";
+import { PendudukProps } from "@/types/penduduk";
+import { Button } from "@headlessui/react";
+import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/16/solid";
+import { Head, Link, router, usePage } from "@inertiajs/react";
+import { IconButton } from "@material-tailwind/react";
+import { useEffect, useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const packageData: Package[] = [
-    {
-        name: "Free package",
-        price: 0.0,
-        invoiceDate: `Jan 13,2023`,
-        status: "Paid",
-    },
-    {
-        name: "Standard Package",
-        price: 59.0,
-        invoiceDate: `Jan 13,2023`,
-        status: "Paid",
-    },
-    {
-        name: "Business Package",
-        price: 99.0,
-        invoiceDate: `Jan 13,2023`,
-        status: "Unpaid",
-    },
-    {
-        name: "Standard Package",
-        price: 59.0,
-        invoiceDate: `Jan 13,2023`,
-        status: "Pending",
-    },
-    {
-        name: "Standard Package",
-        price: 59.0,
-        invoiceDate: `Jan 13,2023`,
-        status: "Pending",
-    },
-    {
-        name: "Standard Package",
-        price: 59.0,
-        invoiceDate: `Jan 13,2023`,
-        status: "Pending",
-    },
-    {
-        name: "Standard Package",
-        price: 59.0,
-        invoiceDate: `Jan 13,2023`,
-        status: "Pending",
-    },
-    {
-        name: "Standard Package",
-        price: 59.0,
-        invoiceDate: `Jan 13,2023`,
-        status: "Pending",
-    },
-];
 
-export default function Dashboard() {
+
+export default function PendudukPage() {
+    const { props } = usePage<PendudukProps>();
+    const [search, setSearch] = useState(props.search);
+    const [currentPage, setCurrentPage] = useState(
+        props.pagination.current_page
+    );
+
+    useEffect(() => {
+        if (props.flash) {
+            if (props.flash.success) {
+                toast.success(props.flash.success, {
+                    position: "top-right",
+                    autoClose: 3000,
+                });
+            }
+            if (props.flash.error) {
+                toast.error(props.flash.error, {
+                    position: "top-right",
+                    autoClose: 3000,
+                });
+            }
+        }
+    }, [props.flash]);
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            router.get(
+                route("penduduk.index"),
+                { search, page: currentPage },
+                { replace: true, preserveState: true }
+            );
+        }, 500);
+
+        return () => clearTimeout(timeout);
+    }, [search, currentPage]);
+
+    const handlePageChange = (page: number) => {
+        setCurrentPage(page);
+    };
+
+    const next = () => {
+        if (currentPage < props.pagination.last_page) {
+            handlePageChange(currentPage + 1);
+        }
+    };
+
+    const prev = () => {
+        if (currentPage > 1) {
+            handlePageChange(currentPage - 1);
+        }
+    };
+
+    const getItemProps = (index: number) => ({
+        variant: currentPage === index ? "filled" : "text",
+        color: "gray",
+        onClick: () => handlePageChange(index),
+    });
+
     return (
         <AuthenticatedLayout>
             <Head title="Penduduk" />
+
+            <ToastContainer />
 
             <div className="mb-8 ml-3">
                 <h2 className="text-2xl font-semibold text-gray-600 dark:text-gray-200">
@@ -64,8 +81,18 @@ export default function Dashboard() {
                 </h2>
             </div>
 
-            <div className="flex flex-col gap-10">
-                <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
+            <div className="flex items-center mb-8">
+                <SearchBar value={search} onChange={setSearch} />
+                <Link
+                    href={route("penduduk.create")}
+                    className="flex items-center gap-2 mb-4 px-4 py-2  bg-primary text-white rounded-md shadow-sm hover:bg-primary-hover dark:bg-primary-dark dark:hover:bg-primary-hover-dark ml-4"
+                >
+                    Tambah Data
+                </Link>
+            </div>
+
+            <div className="flex flex-col gap-10 ">
+                <div className="rounded-xl border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
                     <div className="max-w-full overflow-x-auto">
                         <table className="w-full table-auto">
                             <thead>
@@ -76,53 +103,33 @@ export default function Dashboard() {
                                     <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
                                         Nama
                                     </th>
-                                    <th className="min-w-[200px] py-4 px-4 font-medium text-black dark:text-white">
-                                        Tanggal Lahir
-                                    </th>
-                                    <th className="min-w-[200px] py-4 px-4 font-medium text-black dark:text-white">
-                                        Jenis Kelamin
-                                    </th>
-                                    <th className="min-w-[200px] py-4 px-4 font-medium text-black dark:text-white">
-                                        Alamat
-                                    </th>
                                     <th className="py-4 px-4 font-medium text-black dark:text-white">
                                         Actions
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {packageData.map((packageItem, key) => (
-                                    <tr key={key}>
-                                        <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
-                                            <h5 className="font-medium text-black dark:text-white">
-                                                {packageItem.name}
-                                            </h5>
-                                            <p className="text-sm">
-                                                ${packageItem.price}
+                                {props.penduduks.map((penduduk) => (
+                                    <tr key={penduduk.id}>
+                                        <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                                            <p className="text-black dark:text-white">
+                                                {penduduk.nik}
                                             </p>
                                         </td>
                                         <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                                             <p className="text-black dark:text-white">
-                                                {packageItem.invoiceDate}
-                                            </p>
-                                        </td>
-                                        <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                                            <p
-                                                className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${packageItem.status ===
-                                                        "Paid"
-                                                        ? "bg-success text-success"
-                                                        : packageItem.status ===
-                                                            "Unpaid"
-                                                            ? "bg-danger text-danger"
-                                                            : "bg-warning text-warning"
-                                                    }`}
-                                            >
-                                                {packageItem.status}
+                                                {penduduk.nama}
                                             </p>
                                         </td>
                                         <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                                             <div className="flex items-center space-x-3.5">
-                                                <button className="hover:text-primary">
+                                                <Link
+                                                    href={route(
+                                                        "penduduk.detail",
+                                                        penduduk.id
+                                                    )}
+                                                    className="hover:text-primary"
+                                                >
                                                     <svg
                                                         className="fill-current"
                                                         width="18"
@@ -140,7 +147,7 @@ export default function Dashboard() {
                                                             fill=""
                                                         />
                                                     </svg>
-                                                </button>
+                                                </Link>
                                                 <button className="hover:text-primary">
                                                     <svg
                                                         className="fill-current"
@@ -195,6 +202,53 @@ export default function Dashboard() {
                         </table>
                     </div>
                 </div>
+
+                {/* Pagination */}
+                <div className="mt-4 flex justify-center items-center gap-4">
+                    <div className="flex items-center gap-4">
+                        <Button
+                            className="flex items-center gap-2"
+                            onClick={prev}
+                            disabled={currentPage === 1}
+                        >
+                            <ArrowLeftIcon
+                                strokeWidth={2}
+                                className="h-4 w-4"
+                            />{" "}
+                            Previous
+                        </Button>
+                        <div className="flex items-center gap-2 dark">
+                            {Array.from(
+                                { length: props.pagination.last_page },
+                                (_, i) => i + 1
+                            ).map((page) => (
+                                <IconButton
+                                    key={page}
+                                    {...getItemProps(page)}
+                                    placeholder=""
+                                    onPointerEnterCapture={() => {}}
+                                    onPointerLeaveCapture={() => {}}
+                                >
+                                    {page}
+                                </IconButton>
+                            ))}
+                        </div>
+                        <Button
+                            className="flex items-center gap-2"
+                            onClick={next}
+                            disabled={
+                                currentPage === props.pagination.last_page
+                            }
+                        >
+                            Next
+                            <ArrowRightIcon
+                                strokeWidth={2}
+                                className="h-4 w-4"
+                            />
+                        </Button>
+                    </div>
+                </div>
+                {/* End Pagination */}
             </div>
         </AuthenticatedLayout>
     );
