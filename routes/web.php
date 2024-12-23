@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PendudukController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -16,6 +17,10 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('penduduk')->group(function(){
         Route::get('/', [PendudukController::class, 'index'])->name('penduduk.index');
+    });
+
+    Route::prefix('users')->group(function(){
+        Route::get('/', [UserController::class, 'index'])->name('users.index');
     });
 
 
