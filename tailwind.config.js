@@ -1,5 +1,5 @@
-const defaultTheme = require('tailwindcss/defaultTheme');
-const colors = require('tailwindcss/colors');
+const defaultTheme = require("tailwindcss/defaultTheme");
+const colors = require("tailwindcss/colors");
 const withMT = require("@material-tailwind/react/utils/withMT");
 /** @type {import('tailwindcss').Config} */
 module.exports = withMT({
@@ -13,6 +13,7 @@ module.exports = withMT({
     theme: {
         fontFamily: {
             satoshi: ["Satoshi", "sans-serif"],
+            inter: ["Inter", "sans-serif"], 
         },
         screens: {
             "2xsm": "375px",
@@ -55,6 +56,20 @@ module.exports = withMT({
                 strokedark: "#2E3A47",
                 "form-strokedark": "#3d4d60",
                 "form-input": "#1d2a39",
+                titlebg: "#ADFFF8",
+                titlebg2: "#FFEAC2",
+                titlebgdark: "#46495A",
+                btndark: "#292E45",
+                blackho: "#2C3149",
+                blacksection: "#1C2136",
+                primary2: "#006BFF",
+                primaryho: "#0063EC",
+                meta: "#20C5A8",
+                waterloo: "#757693",
+                manatee: "#999AA1",
+                alabaster: "#FBFBFB",
+                zumthor: "#EDF5FF",
+                socialicon: "#D1D8E0",
                 meta: {
                     1: "#DC3545",
                     2: "#EFF2F7",
@@ -80,6 +95,18 @@ module.exports = withMT({
                 "title-md2": ["26px", "30px"],
                 "title-sm": ["20px", "26px"],
                 "title-xsm": ["18px", "24px"],
+                metatitle: ["12px", "20px"],
+                sectiontitle: ["14px", "22px"],
+                regular: ["16px", "26px"],
+                metatitle3: ["18px", "26px"],
+                metatitle2: ["20px", "32px"],
+                para2: ["22px", "35px"],
+                itemtitle: ["26px", "32px"],
+                itemtitle2: ["24px", "32px"],
+                hero: ["44px", "58px"],
+                sectiontitle3: ["44px", "55px"],
+                sectiontitle2: ["40px", "52px"],
+                sectiontitle4: ["34px", "48px"],
             },
             spacing: {
                 4.5: "1.125rem",
@@ -198,6 +225,12 @@ module.exports = withMT({
                 270: "67.5rem",
                 280: "70rem",
                 292.5: "73.125rem",
+                "c-1390": "86.875rem",
+                "c-1315": "82.188rem",
+                "c-1280": "80rem",
+                "c-1235": "77.188rem",
+                "c-1154": "72.125rem",
+                "c-1016": "63.5rem",
             },
             maxHeight: {
                 35: "8.75rem",
@@ -249,6 +282,19 @@ module.exports = withMT({
                 6: "0px 3px 15px rgba(0, 0, 0, 0.1)",
                 7: "-5px 0 0 #313D4A, 5px 0 0 #313D4A",
                 8: "1px 0 0 #313D4A, -1px 0 0 #313D4A, 0 1px 0 #313D4A, 0 -1px 0 #313D4A, 0 3px 13px rgb(0 0 0 / 8%)",
+                "solid-l": "0px 10px 120px 0px rgba(45, 74, 170, 0.1)",
+                "solid-2": "0px 2px 10px rgba(122, 135, 167, 0.05)",
+                "solid-3": "0px 6px 90px rgba(8, 14, 40, 0.04)",
+                "solid-4": "0px 6px 90px rgba(8, 14, 40, 0.1)",
+                "solid-5": "0px 8px 24px rgba(45, 74, 170, 0.08)",
+                "solid-6": "0px 8px 24px rgba(10, 16, 35, 0.08)",
+                "solid-7": "0px 30px 50px rgba(45, 74, 170, 0.1)",
+                "solid-8": "0px 12px 120px rgba(45, 74, 170, 0.06)",
+                "solid-9": "0px 12px 30px rgba(45, 74, 170, 0.06)",
+                "solid-10": "0px 8px 30px rgba(45, 74, 170, 0.06)",
+                "solid-11": "0px 6px 20px rgba(45, 74, 170, 0.05)",
+                "solid-12": "0px 2px 10px rgba(0, 0, 0, 0.05)",
+                "solid-13": "0px 2px 19px rgba(0, 0, 0, 0.05)",
             },
             dropShadow: {
                 1: "0px 1px 0px #E2E8F0",
@@ -259,6 +305,10 @@ module.exports = withMT({
                     "0%, 100%": { transform: "rotate(360deg)" },
                     "50%": { transform: "rotate(0deg)" },
                 },
+                line: {
+                    "0%, 100%": { transform: "translateY(100%)" },
+                    "50%": { transform: "translateY(0)" },
+                },
             },
             animation: {
                 "ping-once": "ping 5s cubic-bezier(0, 0, 0.2, 1)",
@@ -266,8 +316,12 @@ module.exports = withMT({
                 "spin-1.5": "spin 1.5s linear infinite",
                 "spin-2": "spin 2s linear infinite",
                 "spin-3": "spin 3s linear infinite",
+                line1: "line 3s linear infinite",
+                line2: "line 6s linear infinite",
+                line3: "line 9s linear infinite",
             },
         },
     },
     plugins: [],
 });
+
