@@ -1,9 +1,26 @@
+import Footer from "@/Components/Footer";
+import Header2 from "@/Components/Header2";
+import Lines from "@/Components/Lines";
+import ScrollToTop from "@/Components/ScrollToTop";
+import ToasterContext from "@/context/ToastContext";
+import { ThemeProvider } from "next-themes";
 import { PropsWithChildren } from "react";
 
 export default function Guest({ children }: PropsWithChildren) {
     return (
-        <div className="rounded-sm border h-screen pb-0 border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-            <div className="flex flex-wrap items-center">{children}</div>
+        <div>
+            <ThemeProvider
+                enableSystem={true}
+                attribute="class"
+                defaultTheme="system"
+            >
+                <Lines />
+                <Header2 />
+                <ToasterContext />
+                {children}
+                <Footer />
+                <ScrollToTop />
+            </ThemeProvider>
         </div>
     );
 }
