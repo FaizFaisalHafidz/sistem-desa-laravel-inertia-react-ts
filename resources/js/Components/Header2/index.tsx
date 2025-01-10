@@ -36,14 +36,14 @@ const Header2 = () => {
                 <div className="flex w-full items-center justify-between xl:w-1/4">
                     <a href="/">
                         <img
-                            src="/images/logo/logo-dark.svg"
+                            src="/images/logo/2.svg"
                             alt="logo"
                             width={119.03}
                             height={30}
                             className="hidden w-full dark:block"
                         />
                         <img
-                            src="/images/logo/logo-light.svg"
+                            src="/images/logo/1.svg"
                             alt="logo"
                             width={119.03}
                             height={30}
@@ -190,9 +190,9 @@ const Header2 = () => {
 
                         <Link
                             href="https://nextjstemplates.com/templates/solid"
-                            className="flex items-center justify-center rounded-full bg-primary px-7.5 py-2.5 text-regular text-white duration-300 ease-in-out hover:bg-primaryho"
+                            className="flex items-center justify-center rounded-full bg-red-700 px-7.5 py-2.5 text-regular text-white duration-300 ease-in-out hover:bg-red-600"
                         >
-                            Get Pro 🔥
+                            Booking Now 🔥
                         </Link>
                     </div>
                 </div>
