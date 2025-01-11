@@ -82,7 +82,7 @@ const Pricing = () => {
 
             {/* <!-- Pricing Item --> */}
             <div className="animate_top group relative rounded-lg border border-stroke bg-white p-7.5 shadow-solid-10 dark:border-strokedark dark:bg-blacksection dark:shadow-none md:w-[45%] lg:w-1/3 xl:p-12.5">
-              <div className="absolute -right-3.5 top-7.5 -rotate-90 rounded-bl-full rounded-tl-full bg-primary px-4.5 py-1.5 text-metatitle font-medium uppercase text-white">
+              <div className="absolute -right-3.5 top-7.5 -rotate-90 rounded-bl-full rounded-tl-full bg-red-700 px-4.5 py-1.5 text-metatitle font-medium uppercase text-white">
                 popular
               </div>
 

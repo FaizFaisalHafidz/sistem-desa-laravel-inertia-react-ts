@@ -3,6 +3,7 @@
 use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\PendudukController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -16,15 +17,14 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
 
-    Route::prefix('penduduk')->group(function(){
-        Route::get('/', [PendudukController::class, 'index'])->name('penduduk.index');
-        Route::get('/detail/{id}', [PendudukController::class, 'detail'])->name('penduduk.detail');
-        Route::get('/create', [PendudukController::class, 'create'])->name('penduduk.create');
-        Route::post('/store', [PendudukController::class, 'store'])->name('penduduk.store');
-    });
 
     Route::prefix('users')->group(function(){
         Route::get('/', [UserController::class, 'index'])->name('users.index');
+    });
+
+    Route::prefix('roles')->group(function(){
+        Route::get('/', [RoleController::class, 'index'])->name('roles.index');
+        Route::post('/store', [RoleController::class, 'store'])->name('roles.store');
     });
 
 

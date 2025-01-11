@@ -1,6 +1,6 @@
 import { Link } from "@inertiajs/react";
 import React, { useEffect, useRef, useState } from "react";
-import Logo from "../../images/logo/logo.svg";
+import Logo from "../../images/logo/logo-2.svg";
 import SidebarLinkGroup from "./SidebarLinkGroup";
 
 interface SidebarProps {
@@ -110,9 +110,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                             <li>
                                 <Link
                                     href="/dashboard"
-                                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                                    className={`group relative flex items-center gap-2.5 rounded-lg py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-red-500 dark:hover:bg-red-500 ${
                                         pathname.includes("dashboard") &&
-                                        "bg-graydark dark:bg-meta-4"
+                                        "bg-red-700 dark:bg-red-700"
                                     }`}
                                 >
                                     <svg
@@ -146,7 +146,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                             {/* <!-- Menu Item Dashboard --> */}
 
                             {/* <!-- Menu Item Calendar --> */}
-                            <li>
+                            {/* <li>
                                 <Link
                                     href="/penduduk"
                                     className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
@@ -173,7 +173,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                                     </svg>
                                     Penduduk
                                 </Link>
-                            </li>
+                            </li> */}
                             {/* <!-- Menu Item Calendar --> */}
 
                             {/* <!-- Menu Item Profile --> */}
@@ -439,6 +439,31 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                                         />
                                     </svg>
                                     Users
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    href="/roles"
+                                    className={`group relative flex items-center gap-2.5 rounded-lg py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                                        pathname.includes("roles") &&
+                                        "bg-red-700 dark:bg-red-700"
+                                    }`}
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke-width="1.5"
+                                        stroke="currentColor"
+                                        className="size-6"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"
+                                        />
+                                    </svg>
+                                    Roles
                                 </Link>
                             </li>
                             {/* <!-- Menu Item Chart --> */}

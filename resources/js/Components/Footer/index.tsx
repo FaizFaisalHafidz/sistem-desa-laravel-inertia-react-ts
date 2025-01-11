@@ -1,4 +1,5 @@
 
+import { Link } from "@inertiajs/react";
 import { motion } from "framer-motion";
 
 const Footer = () => {
@@ -27,25 +28,25 @@ const Footer = () => {
                 viewport={{ once: true }}
                 className="animate_top w-1/2 lg:w-1/4"
               >
-                <a href="/" className="relative">
+                <Link href="/" className="relative">
                   <img
                     width={110}
                     height={80}
-                    src="/images/logo/logo-light.svg"
+                    src="/images/logo/1.svg"
                     alt="Logo"
                     className="dark:hidden"
                   />
                   <img
                     width={110}
                     height={80}
-                    src="/images/logo/logo-dark.svg"
+                    src="/images/logo/2.svg"
                     alt="Logo"
                     className="hidden dark:block"
                   />
-                </a>
+                </Link>
 
                 <p className="mb-10 mt-5">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Jl. Raya Kopo No.247, Kopo, Kec. Bojongloa Kaler, Kota Bandung, Jawa Barat 40233, Indonesia 
                 </p>
 
                 <p className="mb-1.5 text-sectiontitle uppercase tracking-[5px]">
@@ -53,9 +54,9 @@ const Footer = () => {
                 </p>
                 <a
                   href="#"
-                  className="text-itemtitle font-medium text-black dark:text-white"
+                  className="text-lg font-medium text-black dark:text-white"
                 >
-                  hello@solid.com
+                  (022) 5207854
                 </a>
               </motion.div>
 
@@ -300,7 +301,7 @@ const Footer = () => {
               className="animate_top"
             >
               <p>
-                &copy; {new Date().getFullYear()} Solid. All rights reserved
+                &copy; {new Date().getFullYear()} Elpano Studio by <a href="https://neoflashtech.my.id">NeoFlash.Tech</a>
               </p>
             </motion.div>
 

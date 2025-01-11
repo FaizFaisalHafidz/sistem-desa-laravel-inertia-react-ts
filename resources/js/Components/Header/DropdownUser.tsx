@@ -1,11 +1,15 @@
 import { Button } from "@headlessui/react";
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import { useState } from "react";
 import UserOne from "../../images/user/user-01.png";
 import ClickOutside from "../ClickOutSide";
 
 const DropdownUser = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
+    const {auth}: any = usePage().props;
+    const user = auth.user;
+
+    const {name, email} = user;
 
     return (
         <ClickOutside
@@ -18,9 +22,9 @@ const DropdownUser = () => {
             >
                 <span className="hidden text-right lg:block">
                     <span className="block text-sm font-medium text-black dark:text-white">
-                        Thomas Anree
+                        {name}
                     </span>
-                    <span className="block text-xs">UX Designer</span>
+                    <span className="block text-xs">{email}</span>
                 </span>
 
                 <span className="h-12 w-12 rounded-full">

@@ -171,8 +171,8 @@ const Header2 = () => {
                                             href={`${menuItem.path}`}
                                             className={
                                                 pathUrl === menuItem.path
-                                                    ? "text-primary hover:text-primary"
-                                                    : "hover:text-primary"
+                                                    ? "text-primary hover:text-red-500"
+                                                    : "hover:text-red-500"
                                             }
                                         >
                                             {menuItem.title}
@@ -189,7 +189,7 @@ const Header2 = () => {
                        
 
                         <Link
-                            href="https://nextjstemplates.com/templates/solid"
+                            href="/login"
                             className="flex items-center justify-center rounded-full bg-red-700 px-7.5 py-2.5 text-regular text-white duration-300 ease-in-out hover:bg-red-600"
                         >
                             Booking Now 🔥
