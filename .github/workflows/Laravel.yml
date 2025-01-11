@@ -1,0 +1,51 @@
+name: Demo CICD
+
+on:
+  push:
+    branches:
+      - dev  # Deploy setiap kali ada push ke branch 'main'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.3'  # Sesuaikan versi PHP
+        extensions: mbstring, pdo, pdo_mysql, xml, curl
+        ini-values: post_max_size=256M, upload_max_filesize=256M
+        coverage: none
+
+    - name: Install Composer dependencies
+      run: composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'  # Sesuaikan versi Node.js dengan project Anda
+
+    - name: Install NPM dependencies
+      run: npm install
+
+    - name: Build assets
+      run: npm run build
+
+    - name: Upload via FTP
+      uses: SamKirkland/FTP-Deploy-Action@4.1.0
+      with:
+        server: ${{ secrets.SERVER }}
+        username: ${{ secrets.USERNAME }}  
+        password: ${{ secrets.PASSWORD }} 
+        server-dir: /demo-elpano/ 
+        protocol: ftp 
+        port: 21
+
+    - name: Set file permissions
+      run: |
+        find . -type f -exec chmod 644 {} \;
+        find . -type d -exec chmod 755 {} \;
