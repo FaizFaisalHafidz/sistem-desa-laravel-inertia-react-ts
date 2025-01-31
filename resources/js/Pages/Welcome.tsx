@@ -1,5 +1,4 @@
 import About from '@/Components/About'
-import Blog from '@/Components/Blog'
 import Contact from '@/Components/Contact'
 import CTA from '@/Components/CTA'
 import FAQ from '@/Components/FAQ'
@@ -12,9 +11,9 @@ import Testimonial from '@/Components/Testimonial'
 import Guest from '@/Layouts/GuestLayout'
 import { Head } from '@inertiajs/react'
 
-const Welcome = () => {
+export default function Welcome({ user }: { user?: { name: string } }) {
   return (
-      <Guest>
+      <Guest user={user}>
         <Head title='Beranda' />
         <Hero />
         {/* <Brands /> */}
@@ -28,9 +27,10 @@ const Welcome = () => {
         <Testimonial />
         <Pricing />
         <Contact />
-        <Blog />
+        <div className='mt-5 mb-5'>
+
+        </div>
       </Guest>
   )
 }
 
-export default Welcome

@@ -2,17 +2,16 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { PageProps } from "@/types";
 import { Button } from "@headlessui/react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/16/solid";
-import { Head, usePage } from "@inertiajs/react";
+import { Head, Link, usePage } from "@inertiajs/react";
 import { IconButton } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-interface User {
+interface Kategori {
     id: number;
-    name: string;
-    email: string;
-    roles: { name: string }[];
+    nama: string;
+    
 }
 
 //rolerole
@@ -26,9 +25,7 @@ export interface RoleProps extends PageProps {
 
 export default function RolePage() {
     const { props } = usePage();
-    const data = props.users as User[];
-
-    console.log(data);
+    const data = props.kategori as Kategori[];
 
     const [isModalOpen, setModalOpen] = useState(false);
 
@@ -47,7 +44,7 @@ export default function RolePage() {
     }, [flash]);
 
     const filteredData = data.filter((item) =>
-        item.name.toLowerCase().includes(searchTerm.toLowerCase())
+        item.nama.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     const paginateData = filteredData.slice(
@@ -86,17 +83,9 @@ export default function RolePage() {
         setTheme(currentTheme as "light" | "dark");
     }, []);
 
-    const [selectedRole, setSelectedRole] = useState<User | null>(null);
-    const [isModalEditOpen, setModalEditOpen] = useState(false);
-
-    const handleEditClick = (role: User) => {
-        setSelectedRole(role);
-        setModalOpen(true);
-    };
-
     return (
         <AuthenticatedLayout>
-            <Head title="Roles" />
+            <Head title="Kategori Paket" />
 
             {/* <ModalRole
                 isOpen={isModalOpen}
@@ -117,7 +106,7 @@ export default function RolePage() {
 
             <div className="mb-8 ml-3">
                 <h2 className="text-2xl font-semibold text-gray-600 dark:text-gray-200">
-                    Data User
+                    Data Kategori Paket
                 </h2>
             </div>
 
@@ -129,16 +118,16 @@ export default function RolePage() {
                         type="text"
                         value={searchTerm}
                         onChange={(event) => setSearchTerm(event.target.value)}
-                        placeholder="Cari Role..."
+                        placeholder="Cari Kategori..."
                         className="w-60 rounded-md border px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-black"
                     />
                 </div>
-                <Button
-                    onClick={() => setModalOpen(true)}
+                <Link
+                    href={route("kategori-paket.create")}
                     className="flex items-center gap-2 mb-4 px-4 py-2 cursor-pointer bg-red-700 text-white rounded-md shadow-sm hover:bg-red-600  ml-4"
                 >
-                    Tambah Role
-                </Button>
+                    Tambah Kategori
+                </Link>
             </div>
 
             <div className="flex flex-col gap-10 ">
@@ -147,49 +136,29 @@ export default function RolePage() {
                         <table className="w-full table-auto">
                             <thead>
                                 <tr className="bg-gray-2 text-left dark:bg-meta-4">
+                                    
                                     <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
                                         Nama
                                     </th>
-                                    <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
-                                        Email
-                                    </th>
-                                    <th className="py-4 px-4 font-medium text-black dark:text-white">
-                                        Roles
-                                    </th>
-
+                                   
                                     <th className="py-4 px-4 font-medium text-black dark:text-white">
                                         Actions
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {paginateData.map((role) => (
-                                    <tr key={role.id}>
+                                {paginateData.map((items) => (
+                                    <tr key={items.id}>
+                                       
                                         <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                                             <p className="text-black dark:text-white">
-                                                {role.name}
+                                                {items.nama}
                                             </p>
                                         </td>
-                                        <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                                            <p className="text-black dark:text-white">
-                                                {role.email}
-                                            </p>
-                                        </td>
-                                        <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                                            <p className="text-black dark:text-white">
-                                                {role.roles
-                                                    .map((role) => role.name)
-                                                    .join(", ")}
-                                            </p>
-                                        </td>
+                                        
                                         <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                                             <div className="flex items-center space-x-3.5">
-                                                <button
-                                                    className="hover:text-red-600"
-                                                    onClick={() =>
-                                                        handleEditClick(role)
-                                                    }
-                                                >
+                                                <Link href={route('kategori-paket.edit', items.id)} className="hover:text-red-600">
                                                     <svg
                                                         xmlns="http://www.w3.org/2000/svg"
                                                         fill="none"
@@ -204,7 +173,7 @@ export default function RolePage() {
                                                             d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
                                                         />
                                                     </svg>
-                                                </button>
+                                                </Link>
                                                 <button className="hover:text-red-500">
                                                     <svg
                                                         className="fill-current"
