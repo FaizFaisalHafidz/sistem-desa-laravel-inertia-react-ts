@@ -30,7 +30,11 @@ interface SnapResult {
     va_numbers?: { bank: string; va_number: string }[];
 }
 
-export default function PembayaranPage() {
+export default function PembayaranPage({
+    user,
+}: {
+    user?: { name: string };
+}) {
     const { props } = usePage();
     const data = props.pembayaran as Cicilan[];
 
@@ -125,7 +129,7 @@ export default function PembayaranPage() {
     };
 
     return (
-        <Guest>
+        <Guest user={user}>
             <Head title="Pembayaran" />
 
             <section className="pb-20 pt-35 lg:pb-25 lg:pt-45 xl:pb-30 xl:pt-50">

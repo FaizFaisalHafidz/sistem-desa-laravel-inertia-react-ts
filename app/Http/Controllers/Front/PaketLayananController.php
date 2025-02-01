@@ -72,6 +72,7 @@ class PaketLayananController extends Controller
         $no_telp = $validated['no_telp'];
 
         $booking = Booking::create([
+            'kode' => 'ELP-' . $paket->id . '-' . time(),
             'paket_id' => $paket->id,
             'user_id' => $user->id,
             'tanggal_dari' => $tanggal_dari,

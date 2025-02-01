@@ -133,12 +133,12 @@ export default function RolePage() {
                         className="w-60 rounded-md border px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-black"
                     />
                 </div>
-                <Button
+                {/* <Button
                     onClick={() => setModalOpen(true)}
                     className="flex items-center gap-2 mb-4 px-4 py-2 cursor-pointer bg-red-700 text-white rounded-md shadow-sm hover:bg-red-600  ml-4"
                 >
                     Tambah Role
-                </Button>
+                </Button> */}
             </div>
 
             <div className="flex flex-col gap-10 ">
@@ -157,9 +157,9 @@ export default function RolePage() {
                                         Roles
                                     </th>
 
-                                    <th className="py-4 px-4 font-medium text-black dark:text-white">
+                                    {/* <th className="py-4 px-4 font-medium text-black dark:text-white">
                                         Actions
-                                    </th>
+                                    </th> */}
                                 </tr>
                             </thead>
                             <tbody>
@@ -182,7 +182,7 @@ export default function RolePage() {
                                                     .join(", ")}
                                             </p>
                                         </td>
-                                        <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                                        {/* <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                                             <div className="flex items-center space-x-3.5">
                                                 <button
                                                     className="hover:text-red-600"
@@ -233,7 +233,7 @@ export default function RolePage() {
                                                     </svg>
                                                 </button>
                                             </div>
-                                        </td>
+                                        </td> */}
                                     </tr>
                                 ))}
                             </tbody>

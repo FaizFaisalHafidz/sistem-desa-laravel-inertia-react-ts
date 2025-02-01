@@ -16,9 +16,10 @@ class TransactionSuccessMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    protected $datas;
+    public function __construct($datas)
     {
-        //
+        $this->datas = $datas;
     }
 
     /**
@@ -26,8 +27,9 @@ class TransactionSuccessMail extends Mailable
      */
     public function envelope(): Envelope
     {
+        $datas = (object) $this->datas;
         return new Envelope(
-            subject: 'Transaction Success Mail',
+            subject: "Terima kasih atas pembayaran Anda - {$datas->transaction->order_id}",
         );
     }
 
@@ -37,7 +39,8 @@ class TransactionSuccessMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'emails.transaction_success',
+            with: $this->datas
         );
     }
 

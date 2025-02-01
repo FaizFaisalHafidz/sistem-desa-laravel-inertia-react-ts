@@ -15,7 +15,7 @@ class Pembayaran extends Model
         'jumlah',
         'status',
         'metode_pembayaran',
-        'tanggal_bayar',
+        'tanggal_pembayaran',
     ];
 
     public function cicilan()

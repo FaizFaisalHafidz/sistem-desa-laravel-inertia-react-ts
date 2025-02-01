@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\TransactionSuccessMail;
 use App\Models\Cicilan;
 use App\Models\Pembayaran;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 use Midtrans\Config;
 use Midtrans\Snap;
@@ -23,6 +26,7 @@ class PembayaranController extends Controller
 
         return Inertia::render('Pembayaran/Index', [
             'pembayaran' => $pembayaran,
+            'user' => Auth::user(),
         ]);
     }
 
@@ -88,7 +92,9 @@ class PembayaranController extends Controller
         // Verifikasi status transaksi
         $status = $request->input('transaction_status');
         $orderId = $request->input('order_id');
-        $cicilanId = substr($orderId, 8);
+        $cicilanId = substr($orderId, 4, 1);
+
+        Log::info("CICILAN ID : {$cicilanId}");
 
         $cicilan = Cicilan::find($cicilanId);
 
@@ -101,6 +107,20 @@ class PembayaranController extends Controller
         $jumlahPembayaran = $request->input('gross_amount');
         $tanggalPembayaran = now();
 
+
+        // **Ambil metode pembayaran dari VA Numbers atau Payment Type**
+        $metodePembayaran = $request->input('payment_type'); // Default ke payment_type
+
+        // Jika menggunakan bank transfer, ambil nama bank dari `va_numbers`
+        if ($metodePembayaran === 'bank_transfer' && isset($request->va_numbers)) {
+            $vaNumbers = $request->input('va_numbers');
+            if (is_array($vaNumbers) && count($vaNumbers) > 0) {
+                $metodePembayaran = strtoupper($vaNumbers[0]['bank']); // Contoh: BCA, MANDIRI
+            }
+        } elseif ($metodePembayaran === 'qris') {
+            $metodePembayaran = 'QRIS';
+        }
+
         // Update status cicilan berdasarkan status transaksi
         switch ($status) {
             case 'capture':
@@ -108,6 +128,7 @@ class PembayaranController extends Controller
                 if ($request->input('fraud_status') == 'accept') {
                     $cicilan->status = 'Dibayar';
                     $this->createPaymentRecord($userId, $cicilan->id, 'Berhasil', $metodePembayaran, $jumlahPembayaran, $tanggalPembayaran);
+                    $this->sendTransactionSuccessMail($cicilan, $request, $metodePembayaran);
                 } else {
                     $cicilan->status = 'Ditolak';
                 }
@@ -116,7 +137,7 @@ class PembayaranController extends Controller
             case 'settlement':
                 $cicilan->status = 'Dibayar';
                 $this->createPaymentRecord($userId, $cicilan->id, 'Berhasil', $metodePembayaran, $jumlahPembayaran, $tanggalPembayaran);
-
+                $this->sendTransactionSuccessMail($cicilan, $request, $metodePembayaran);
                 break;
 
             case 'pending':
@@ -160,7 +181,7 @@ class PembayaranController extends Controller
                 'kode' => 'CICILAN-' . $cicilanId . '-' . time(),
                 'metode_pembayaran' => $metodePembayaran,
                 'jumlah' => $jumlahPembayaran,
-                'tanggal_bayar' => $tanggalPembayaran,
+                'tanggal_pembayaran' => $tanggalPembayaran,
             ]);
 
             DB::commit();
@@ -168,6 +189,29 @@ class PembayaranController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error("Gagal membuat pembayaran: " . $e->getMessage());
+        }
+    }
+
+    protected function sendTransactionSuccessMail($cicilan, $request, $payment_method)
+    {
+        if (env("MAIL_PASSWORD")) {
+            $datas = [
+                "user" => (object) [
+                    "name" => $cicilan->user->name
+                ],
+                "transaction" => (object) [
+                    "order_id" => $request->input('order_id'),
+                    "amount" => $request->input('gross_amount'),
+                    "transaction_time" => Carbon::parse($request->input('transaction_time'))
+                        ->locale('id')
+                        ->isoFormat('D MMMM YYYY - HH:mm'),
+                    "payment_method" => $payment_method,
+                ],
+                "item" => (object) [
+                    "name" => 'Pembayaran Cicilan Ke-' . $cicilan->cicilan_ke
+                ],
+            ];
+            Mail::to($cicilan->user->email)->send(new TransactionSuccessMail($datas));
         }
     }
 }
