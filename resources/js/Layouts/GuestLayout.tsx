@@ -6,7 +6,12 @@ import ToasterContext from "@/context/ToastContext";
 import { ThemeProvider } from "next-themes";
 import { PropsWithChildren } from "react";
 
-export default function Guest({ children }: PropsWithChildren) {
+type Props = {
+    children: PropsWithChildren<any>;
+    user?: { name: string };
+};
+
+export default function Guest({ children, user }: Props) {
     return (
         <div>
             <ThemeProvider
@@ -15,7 +20,7 @@ export default function Guest({ children }: PropsWithChildren) {
                 defaultTheme="system"
             >
                 <Lines />
-                <Header2 />
+                <Header2 user={user} />
                 <ToasterContext />
                 {children}
                 <Footer />

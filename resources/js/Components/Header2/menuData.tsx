@@ -14,11 +14,17 @@ const menuData: Menu[] = [
     newTab: false,
     path: "/#features",
   },
+  // {
+  //   id: 2.1,
+  //   title: "Blog",
+  //   newTab: false,
+  //   path: "/blogs",
+  // },
   {
-    id: 2.1,
-    title: "Blog",
+    id: 3,
+    title: "Paket",
     newTab: false,
-    path: "#",
+    path: "/paket-layanan",
   },
   {
     id: 4,
