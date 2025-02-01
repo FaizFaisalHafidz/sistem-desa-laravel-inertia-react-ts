@@ -12,7 +12,7 @@ class ManajemenPembayaranController extends Controller
 {
     public function index()
     {
-        $pembayaran = Pembayaran::with('cicilan', 'kode')->get();
+        $pembayaran = Pembayaran::with('cicilan', 'user')->get();
 
         // dd($pembayaran->toArray());
 

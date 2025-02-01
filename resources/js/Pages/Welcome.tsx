@@ -1,10 +1,8 @@
 import About from '@/Components/About'
 import Contact from '@/Components/Contact'
-import CTA from '@/Components/CTA'
 import FAQ from '@/Components/FAQ'
 import Feature from '@/Components/Features'
 import FeaturesTab from '@/Components/FeaturesTab'
-import FunFact from '@/Components/FunFact'
 import Hero from '@/Components/Hero'
 import Testimonial from '@/Components/Testimonial'
 import Guest from '@/Layouts/GuestLayout'
@@ -19,9 +17,9 @@ export default function Welcome({ user }: { user?: { name: string } }) {
         <Feature />
         <About />
         <FeaturesTab />
-        <FunFact />
+        {/* <FunFact /> */}
         {/* <Integration /> */}
-        <CTA />
+        {/* <CTA /> */}
         <FAQ />
         <Testimonial />
         {/* <Pricing /> */}

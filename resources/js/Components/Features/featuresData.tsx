@@ -4,44 +4,44 @@ const featuresData: Feature[] = [
   {
     id: 1,
     icon: "/images/icon/icon-01.svg",
-    title: "Crafted for SaaS",
+    title: "🎤 Sewa Sound System & Lighting",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In convallis tortor.",
+      "Jadikan acara Anda lebih meriah dengan kualitas suara terbaik dan pencahayaan profesional.",
   },
   {
     id: 2,
     icon: "/images/icon/icon-02.svg",
-    title: "High-quality Design",
+    title: "🎪 Sewa Panggung & Rigging",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In convallis tortor.",
+      "Butuh panggung yang kokoh dan aman? Kami menyediakan stage berkualitas untuk berbagai kebutuhan acara.",
   },
   {
     id: 3,
     icon: "/images/icon/icon-03.svg",
-    title: "Next.js 13 + TypeScript",
+    title: "🎉 Peralatan Pesta Lengkap",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In convallis tortor.",
+      "Mulai dari meja, kursi, hingga dekorasi, kami siap memenuhi segala kebutuhan pesta Anda.",
   },
   {
     id: 4,
     icon: "/images/icon/icon-04.svg",
-    title: "Sanity Blog and Docs",
+    title: "💍 Rias Pengantin & Dekorasi Acara",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In convallis tortor.",
+      "Percantik momen spesial Anda dengan layanan rias pengantin dan dekorasi elegan.",
   },
   {
     id: 5,
     icon: "/images/icon/icon-05.svg",
-    title: "DB, Auth and Stripe",
+    title: "🎶 Hiburan Band & Electone",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In convallis tortor.",
+      "Hadirkan hiburan terbaik dengan live band dan electone untuk menciptakan suasana yang lebih hidup.",
   },
   {
     id: 6,
     icon: "/images/icon/icon-06.svg",
-    title: "Regular Free Updates",
+    title: "📸 Dokumentasi Foto & Video",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In convallis tortor.",
+      "Abadikan setiap momen berharga dengan layanan fotografi dan videografi profesional.",
   },
 ];
 

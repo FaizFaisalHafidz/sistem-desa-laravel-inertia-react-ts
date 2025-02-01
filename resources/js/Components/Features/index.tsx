@@ -11,11 +11,9 @@ const Feature = () => {
                     {/* <!-- Section Title Start --> */}
                     <SectionHeader
                         headerInfo={{
-                            title: "Layanan Kami",
-                            subtitle: "Core Features of Solid",
-                            description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
-            convallis tortor eros. Donec vitae tortor lacus. Phasellus aliquam
-            ante in maximus.`,
+                            title: "-",
+                            subtitle: "Layanan Kami",
+                            description: `Kami siap membantu Anda dalam menciptakan acara yang spektakuler dengan berbagai layanan sewa peralatan pesta dan hiburan. Dari panggung megah hingga dekorasi memukau, kami menghadirkan solusi lengkap untuk setiap kebutuhan acara Anda.`,
                         }}
                     />
                     {/* <!-- Section Title End --> */}
