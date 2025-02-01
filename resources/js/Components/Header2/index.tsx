@@ -1,5 +1,7 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 
+import { Menu, Transition } from "@headlessui/react";
+import { ChevronDownIcon, UserCircleIcon } from "@heroicons/react/16/solid";
 import { Link, usePage } from "@inertiajs/react";
 import ThemeToggler from "./ThemeToggler";
 import menuData from "./menuData";
@@ -191,19 +193,95 @@ const Header2 = ({ user }: Header2Props) => {
                         <ThemeToggler />
 
                         {user ? (
-                            <Link
-                                href="/login"
-                                className="flex items-center justify-center rounded-full bg-red-700 px-7.5 py-2.5 text-regular text-white duration-300 ease-in-out hover:bg-red-600"
+                            <Menu
+                                as="div"
+                                className="relative inline-block text-left"
                             >
-                                {user.name}
-                            </Link>
+                                <div>
+                                    <Menu.Button className="flex items-center gap-2 rounded-full bg-red-700 px-7.5 py-2.5 text-regular text-white duration-300 ease-in-out hover:bg-red-600">
+                                        <UserCircleIcon className="h-6 w-6" />
+                                        <span>{user.name}</span>
+                                        <ChevronDownIcon
+                                            className="h-5 w-5"
+                                            aria-hidden="true"
+                                        />
+                                    </Menu.Button>
+                                </div>
+
+                                <Transition
+                                    as={Fragment}
+                                    enter="transition ease-out duration-100"
+                                    enterFrom="transform opacity-0 scale-95"
+                                    enterTo="transform opacity-100 scale-100"
+                                    leave="transition ease-in duration-75"
+                                    leaveFrom="transform opacity-100 scale-100"
+                                    leaveTo="transform opacity-0 scale-95"
+                                >
+                                    <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                        <div className="px-1 py-1">
+                                            <Menu.Item>
+                                                {({ active }) => (
+                                                    <Link
+                                                        href="/my-booking"
+                                                        className={`${
+                                                            active
+                                                                ? "bg-red-500 text-white"
+                                                                : "text-gray-900"
+                                                        } group flex w-full items-center rounded-md px-4 py-2 text-sm`}
+                                                    >
+                                                        My Booking
+                                                    </Link>
+                                                )}
+                                            </Menu.Item>
+                                            <Menu.Item>
+                                                {({ active }) => (
+                                                    <Link
+                                                        href="/pembayaran"
+                                                        className={`${
+                                                            active
+                                                                ? "bg-red-500 text-white"
+                                                                : "text-gray-900"
+                                                        } group flex w-full items-center rounded-md px-4 py-2 text-sm`}
+                                                    >
+                                                        Pembayaran
+                                                    </Link>
+                                                )}
+                                            </Menu.Item>
+                                            <Menu.Item>
+                                                {({ active }) => (
+                                                    <Link
+                                                        method="post"
+                                                        href={route("logout")}
+                                                        as="button"
+                                                        className={`${
+                                                            active
+                                                                ? "bg-red-500 text-white"
+                                                                : "text-gray-900"
+                                                        } group flex w-full items-center rounded-md px-4 py-2 text-sm`}
+                                                    >
+                                                        Logout
+                                                    </Link>
+                                                )}
+                                            </Menu.Item>
+                                        </div>
+                                    </Menu.Items>
+                                </Transition>
+                            </Menu>
                         ) : (
-                            <Link
-                                href="/login"
-                                className="flex items-center justify-center rounded-full bg-red-700 px-7.5 py-2.5 text-regular text-white duration-300 ease-in-out hover:bg-red-600"
-                            >
-                                Booking Now 🔥
-                            </Link>
+                            <>
+                                <Link
+                                    href="/login"
+                                    className="flex items-center justify-center rounded-full bg-red-700 px-7.5 py-2.5 text-regular text-white duration-300 ease-in-out hover:bg-red-600"
+                                >
+                                    Login
+                                </Link>
+                                <Link
+                                    href="/register"
+                                    className="flex items-center justify-center rounded-full bg-red-700 px-7.5 py-2.5 text-regular text-white duration-300 ease-in-out hover:bg-red-600"
+                                >
+                                    Register
+                                </Link>
+                            </>
                         )}
                     </div>
                 </div>

@@ -1,3 +1,4 @@
+import Modal from "@/Components/Modal";
 import Guest from "@/Layouts/GuestLayout";
 import { Button } from "@headlessui/react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/16/solid";
@@ -20,6 +21,7 @@ export default function PaketLayananPage({
 }: {
     user?: { name: string };
 }) {
+    const { auth } = usePage().props;
     const { props } = usePage();
     const data = props.pakets as Paket[];
 
@@ -59,6 +61,16 @@ export default function PaketLayananPage({
         onClick: () => handlePageChange(index),
     });
 
+    const [showModal, setShowModal] = useState(false);
+
+    const handleBookingClick = (id) => {
+        if (!auth.user) {
+            setShowModal(true); // Tampilkan modal jika belum login
+        } else {
+            window.location.href = route("paket-layanan.bookingPage", id); // Arahkan ke booking
+        }
+    };
+
     return (
         <Guest user={user}>
             <Head title="Paket Layanan" />
@@ -76,7 +88,7 @@ export default function PaketLayananPage({
                             className="w-full md:w-1/2 rounded-lg border border-stroke px-4 py-2 shadow focus:border-primary focus:outline-none dark:border-strokedark dark:bg-black dark:shadow-none dark:focus:border-primary"
                         />
                         {/* Input Tanggal */}
-                        <div className="flex gap-4">
+                        {/* <div className="flex gap-4">
                             <input
                                 type="date"
                                 value={startDate}
@@ -93,7 +105,7 @@ export default function PaketLayananPage({
                                 }
                                 className="rounded-lg border border-stroke px-4 py-2 shadow focus:border-primary focus:outline-none dark:border-strokedark dark:bg-black dark:shadow-none dark:focus:border-primary"
                             />
-                        </div>
+                        </div> */}
                     </div>
 
                     <div className="grid grid-cols-1 gap-7.5 md:grid-cols-3 lg:grid-cols-3 xl:gap-10">
@@ -111,7 +123,10 @@ export default function PaketLayananPage({
                                 className="rounded-lg bg-white p-4 pb-9 shadow-solid-8 dark:bg-blacksection"
                             >
                                 <Link
-                                    href="#"
+                                    href={route(
+                                        "paket-layanan.bookingPage",
+                                        paket.id
+                                    )}
                                     className="relative block aspect-[368/239]"
                                 >
                                     <img src={paket.gambar} alt={paket.nama} />
@@ -119,7 +134,12 @@ export default function PaketLayananPage({
 
                                 <div className="px-4">
                                     <h3 className="mt-7.5 line-clamp-2 text-lg font-medium text-black dark:text-white">
-                                        <Link href={`/blog/blog-details`}>
+                                        <Link
+                                            href={route(
+                                                "paket-layanan.bookingPage",
+                                                paket.id
+                                            )}
+                                        >
                                             {`${paket.nama.slice(0, 40)}`}
                                         </Link>
                                     </h3>
@@ -131,17 +151,40 @@ export default function PaketLayananPage({
                                     </p>
                                     <div className="mt-4 flex justify-between">
                                         <p>{`Rp ${paket.harga_per_hari.toLocaleString()} / hari`}</p>
-                                        <Button
+                                        <button
+                                            onClick={() =>
+                                                handleBookingClick(paket.id)
+                                            }
                                             className="rounded-xl bg-red-500 px-4 py-2 text-white"
-                                            onClick={() => alert("Booking Now")}
                                         >
-                                            Booking Now
-                                        </Button>
+                                            Booking Sekarang
+                                        </button>
                                     </div>
                                 </div>
                             </motion.div>
                         ))}
                     </div>
+
+                    {/* Modal Login */}
+                    <Modal show={showModal} onClose={() => setShowModal(false)}>
+                        <div className="p-6 text-center">
+                            <h2 className="text-xl font-bold mb-4">
+                                Silakan Login
+                            </h2>
+                            <p className="text-gray-600">
+                                Anda harus login terlebih dahulu sebelum
+                                melakukan booking.
+                            </p>
+                            <div className="mt-6 flex justify-center">
+                                <Link
+                                    href={route("login")}
+                                    className="bg-red-700 text-white px-4 py-2 rounded-lg"
+                                >
+                                    Login Sekarang
+                                </Link>
+                            </div>
+                        </div>
+                    </Modal>
 
                     {/* Pagination */}
                     <div className="mt-14 flex justify-center gap-4">

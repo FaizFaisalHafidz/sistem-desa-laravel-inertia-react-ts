@@ -16,11 +16,10 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check() && Auth::user()->hasRole('super-admin')) {
+        if (Auth::check() && Auth::user()->hasAnyRole(['super-admin', 'pemilik', 'admin'])) {
             return $next($request);
         }
 
-        // Jika tidak sesuai, arahkan ke halaman unauthorized
-        return redirect()->route('unauthorized');
+        abort(403, 'Anda tidak memiliki izin untuk mengakses halaman ini.');
     }
 }

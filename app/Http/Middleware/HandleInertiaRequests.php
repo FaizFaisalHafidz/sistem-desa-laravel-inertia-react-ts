@@ -3,7 +3,10 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 use Inertia\Middleware;
+use Symfony\Component\HttpFoundation\Response;
+use Throwable;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -39,5 +42,15 @@ class HandleInertiaRequests extends Middleware
                 'error' => session('error'),
             ],
         ];
+    }
+
+
+    public function render($request, Throwable $exception): Response
+    {
+        if ($exception->getStatusCode() === 404) {
+            return Inertia::render('Errors/NotFound')->toResponse($request)->setStatusCode(404);
+        }
+
+        return parent::render($request, $exception);
     }
 }

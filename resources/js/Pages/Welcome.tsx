@@ -6,7 +6,6 @@ import Feature from '@/Components/Features'
 import FeaturesTab from '@/Components/FeaturesTab'
 import FunFact from '@/Components/FunFact'
 import Hero from '@/Components/Hero'
-import Pricing from '@/Components/Pricing'
 import Testimonial from '@/Components/Testimonial'
 import Guest from '@/Layouts/GuestLayout'
 import { Head } from '@inertiajs/react'
@@ -25,7 +24,7 @@ export default function Welcome({ user }: { user?: { name: string } }) {
         <CTA />
         <FAQ />
         <Testimonial />
-        <Pricing />
+        {/* <Pricing /> */}
         <Contact />
         <div className='mt-5 mb-5'>
 

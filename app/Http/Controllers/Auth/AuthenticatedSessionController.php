@@ -35,7 +35,18 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        $user = Auth::user();
+
+        // Assign role 'user' jika belum memiliki peran
+        if (!$user->hasAnyRole(['super-admin', 'pemilik', 'admin', 'user'])) {
+            $user->assignRole('user');
+        }
+
+        if ($user->hasAnyRole(['super-admin', 'pemilik', 'admin'])) {
+            return redirect()->intended('/dashboard');
+        }
+
+        return redirect()->intended('/');
     }
 
     /**
@@ -75,10 +86,18 @@ class AuthenticatedSessionController extends Controller
                 'password' => bcrypt('password_dummy'),
             ]
         );
+        if (!$user->hasAnyRole(['super-admin', 'pemilik', 'admin', 'user'])) {
+            $user->assignRole('user');
+        }
 
         // Log the user in
         Auth::login($user);
 
-        return redirect()->intended('/dashboard');
+        // Redirect sesuai role
+        if ($user->hasAnyRole(['super-admin', 'pemilik', 'admin'])) {
+            return redirect()->intended('/dashboard');
+        }
+
+        return redirect()->intended('/');
     }
 }
