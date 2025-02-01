@@ -146,9 +146,9 @@ export default function RolePage() {
                                     <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white">
                                         Kode
                                     </th>
-                                    <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white ">
+                                    {/* <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white ">
                                         Kode Cicilan
-                                    </th>
+                                    </th> */}
                                     <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
                                         Nama Client
                                     </th>
