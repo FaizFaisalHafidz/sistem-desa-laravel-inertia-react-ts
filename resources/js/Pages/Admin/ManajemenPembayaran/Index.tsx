@@ -11,7 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 interface Pembayaran {
     id: number;
     kode: string;
-    cicilan: { kode: string };
+    // cicilan: { kode: string };
     user: { name: string };
     jumlah: number;
     status: string;
@@ -31,6 +31,8 @@ export interface RoleProps extends PageProps {
 export default function RolePage() {
     const { props } = usePage();
     const data = props.pembayaran as Pembayaran[];
+
+    console.log(data);
 
     const [isModalOpen, setModalOpen] = useState(false);
 
@@ -176,11 +178,11 @@ export default function RolePage() {
                                                 {items.kode}
                                             </p>
                                         </td>
-                                        <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                                        {/* <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                                             <p className="text-black dark:text-white">
                                                 {items.cicilan.kode}
                                             </p>
-                                        </td>
+                                        </td> */}
                                         <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                                             <p className="text-black dark:text-white">
                                                 {items.user.name}
