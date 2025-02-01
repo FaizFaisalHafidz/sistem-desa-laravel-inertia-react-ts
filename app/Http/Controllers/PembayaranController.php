@@ -178,7 +178,7 @@ class PembayaranController extends Controller
                 'user_id' => $userId,
                 'cicilan_id' => $cicilanId,
                 'status' => $status,
-                'kode' => 'CICILAN-' . $cicilanId . '-' . time(),
+                'kode' => 'PBR-' . $cicilanId . '-' . time(),
                 'metode_pembayaran' => $metodePembayaran,
                 'jumlah' => $jumlahPembayaran,
                 'tanggal_pembayaran' => $tanggalPembayaran,

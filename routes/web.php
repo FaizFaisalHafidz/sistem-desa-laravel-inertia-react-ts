@@ -1,22 +1,24 @@
 <?php
 
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\KategoriPaketController;
-use App\Http\Controllers\Admin\PaketController;
 use Inertia\Inertia;
+use App\Models\PaketLayanan;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PendudukController;
 use App\Http\Controllers\Front\HomeController;
-use App\Http\Controllers\Front\PaketLayananController;
-use App\Http\Controllers\Front\BlogController as FrontBlogController;
 use App\Http\Controllers\PembayaranController;
-use App\Http\Middleware\AdminMiddleware;
-use App\Models\PaketLayanan;
+use App\Http\Controllers\Admin\PaketController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Front\PaketLayananController;
+use App\Http\Controllers\Admin\KategoriPaketController;
+use App\Http\Controllers\ManajemenPembayaranController;
+use App\Http\Controllers\Admin\ManajemenBookingController;
+use App\Http\Controllers\Front\BlogController as FrontBlogController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::post('/pembayaran/callback', [PembayaranController::class, 'callback']);
@@ -68,6 +70,14 @@ Route::middleware('auth')->group(function () {
             Route::get('create', [PaketController::class, 'create'])->name('manajemen-paket.create');
             Route::post('store', [PaketController::class, 'store'])->name('manajemen-paket.store');
             Route::get('edit/{id}', [PaketController::class, 'edit'])->name('manajemen-paket.edit');
+        });
+
+        Route::prefix('manajemen-booking')->group(function (){
+            Route::get('', [ManajemenBookingController::class, 'index'])->name('manajemen-booking.index');
+        });
+
+        Route::prefix('manajemen-pembayaran')->group(function () {
+            Route::get('', [ManajemenPembayaranController::class, 'index'])->name('manajemen-pembayaran.index');
         });
 
         Route::prefix('roles')->group(function () {
