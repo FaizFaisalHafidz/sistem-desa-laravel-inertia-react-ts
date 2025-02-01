@@ -108,6 +108,6 @@ class PaketLayananController extends Controller
             ]);
         }
 
-        return redirect()->route('paket-layanan.index');
+        return redirect()->route('pembayaran.index');
     }
 }
