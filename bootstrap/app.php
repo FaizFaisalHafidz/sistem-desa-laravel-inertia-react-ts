@@ -16,6 +16,10 @@ return Application::configure(basePath: dirname(__DIR__))
             \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,
         ]);
 
+        $middleware->validateCsrfTokens(except: [
+            'pembayaran/callback', // Menambahkan pengecualian untuk rute ini
+        ]);
+
         //
     })
     ->withExceptions(function (Exceptions $exceptions) {
