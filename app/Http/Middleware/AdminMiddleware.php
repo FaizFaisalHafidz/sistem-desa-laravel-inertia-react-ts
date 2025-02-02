@@ -20,6 +20,6 @@ class AdminMiddleware
             return $next($request);
         }
 
-        abort(403, 'Anda tidak memiliki izin untuk mengakses halaman ini.');
+        abort(403, 'Forbidden.');
     }
 }
