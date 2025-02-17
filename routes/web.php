@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\KategoriPaketController;
 use App\Http\Controllers\ManajemenPembayaranController;
 use App\Http\Controllers\Admin\ManajemenBookingController;
 use App\Http\Controllers\Front\BlogController as FrontBlogController;
+use App\Http\Controllers\MyBookingController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::post('/pembayaran/callback', [PembayaranController::class, 'callback']);
@@ -40,6 +41,10 @@ Route::middleware('auth')->group(function () {
     Route::prefix('pembayaran')->group(function () {
         Route::get('/', [PembayaranController::class, 'index'])->name('pembayaran.index');
         Route::post('bayar', [PembayaranController::class, 'bayar'])->name('pembayaran.bayar');
+    });
+
+    Route::prefix('my-booking')->group(function () {
+        Route::get('/', [MyBookingController::class, 'index'])->name('my-booking.index');
     });
 
 
